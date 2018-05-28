@@ -46,27 +46,30 @@ def pega_dia(data):
     return dia_semana
 
 # Lendo o data frame
-df = pd.read_csv("/Users/amandaluna/Documents/guardiansAnalytics/saida.csv",names = ["data","hora","maquina","usuario"],sep = ";")
+#df = pd.read_csv("/Users/amandaluna/Documents/guardiansAnalytics/saida.csv",names = ["data","hora","maquina","usuario"],sep = ";")
+
 
 #### Ajeitando o data frame ####
+def ajeitando_df(df):
+    # Acrescentando as colunas ano, mês, dia e dia da semana
+    df["sessao"] = df["sessao"]
+    df["ano"] = df["data"].apply(lambda x:int(x[6:]))
+    df["mes"] = df["data"].apply(lambda x:int(x[3:5]))
+    df["dia"] = df["data"].apply(lambda x:int(x[:2]))
+    df["dia_da_semana"] = df["data"].apply(lambda x:pega_dia(x))
 
-# Acrescentando as colunas ano, mês, dia e dia da semana
-df["ano"] = df["data"].apply(lambda x:int(x[6:]))
-df["mes"] = df["data"].apply(lambda x:int(x[3:5]))
-df["dia"] = df["data"].apply(lambda x:int(x[:2]))
-df["dia_da_semana"] = df["data"].apply(lambda x:pega_dia(x))
 
+    # Acrescentando as colunas de hora pura,turno e intervalo
+    df["hora_pura"] = df["hora"].apply(lambda x:int(x[:2]))
+    df["turno"] = df["hora_pura"].apply(lambda x:pega_turno(x))
+    df["intervalo"] = df["hora_pura"].apply(lambda x:pega_intervalo(x))
 
-# Acrescentando as colunas de hora pura,turno e intervalo
-df["hora_pura"] = df["hora"].apply(lambda x:int(x[:2]))
-df["turno"] = df["hora_pura"].apply(lambda x:pega_turno(x))
-df["intervalo"] = df["hora_pura"].apply(lambda x:pega_intervalo(x))
+    # Pegando o número da máquina, apenas
+    df["numero_maquina"] = df["maquina"].apply(lambda x:int(x[5:]))
 
-# Pegando o número da máquina, apenas
-df["numero_maquina"] = df["maquina"].apply(lambda x:int(x[5:]))
-
-#### Gerando gráficos ####
-
+    # Pegar apenas o último usuário de cada célula da coluna usuário
+    df["usuario"] = df["usuario"].apply(lambda x:x.split(","))
+    df["usuario"] = df["usuario"].apply(lambda x:x[-1])
 
 
 
