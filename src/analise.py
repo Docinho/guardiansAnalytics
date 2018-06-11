@@ -70,6 +70,8 @@ def ajeitando_df(df):
     # Pegar apenas o último usuário de cada célula da coluna usuário
     df["usuario"] = df["usuario"].apply(lambda x:x.split(","))
     df["usuario"] = df["usuario"].apply(lambda x:x[-1])
+    
+    return df
 
 
 
