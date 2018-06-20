@@ -24,9 +24,9 @@ def pega_turno(num):
 # Função para pegar o intervalo do acesso    
 def pega_intervalo(num):
     if(num < 8):
-        return "6h-8h"
+        return "06h-08h"
     elif(num >= 8 and num < 10):
-        return "8h-10h"
+        return "08h-10h"
     elif(num >= 10 and num < 12):
         return "10h-12h"
     elif(num >= 12 and num < 14):
