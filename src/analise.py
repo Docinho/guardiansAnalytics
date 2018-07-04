@@ -52,7 +52,7 @@ def pega_dia(data):
 #### Ajeitando o data frame ####
 def ajeitando_df(df):
     # Acrescentando as colunas ano, mês, dia e dia da semana
-    df["sessao"] = df["sessao"]
+#     df["sessao"] = df["sessao"]
     df["ano"] = df["data"].apply(lambda x:int(x[6:]))
     df["mes"] = df["data"].apply(lambda x:int(x[3:5]))
     df["dia"] = df["data"].apply(lambda x:int(x[:2]))
